@@ -11,7 +11,7 @@
 
 class RGBImageStudent : public RGBImage {
 private:
-	int32_t* image_shell; // Pointer to the first element in the image shell.
+	uint32_t* image_shell; // Pointer to the first element in the image shell.
 public:
 
 	RGBImageStudent();

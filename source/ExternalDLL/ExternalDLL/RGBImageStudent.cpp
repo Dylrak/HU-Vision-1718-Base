@@ -5,72 +5,57 @@ RGBImageStudent::RGBImageStudent() : RGBImage() {
 }
 
 RGBImageStudent::RGBImageStudent(const RGBImageStudent &other) : RGBImage(other.getWidth(), other.getHeight()) {
+	image_shell = new uint32_t[getWidth() * getHeight()]; //Create new image shell array with size of 'other'
 	for (int i = 0; i < getWidth() * getHeight(); i++) {
-		new uint32_t [image_shell]
+		setPixel(i, other.getPixel(i)); //Get each pixel from other and set it into the new image shell
 	}
 }
 
-
 RGBImageStudent::RGBImageStudent(const int width, const int height) : RGBImage(width, height) {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: Initialize pixel storage
+	image_shell = new uint32_t[getWidth() * getHeight()];
 }
 
 RGBImageStudent::~RGBImageStudent() {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: delete allocated objects
+	if (image_shell != NULL) {
+		delete[] image_shell; //Delete image shell array if it exists
+	}
 }
 
+//Resize or create a new pixel storage, deleting the old storage in the process (if it exists)
 void RGBImageStudent::set(const int width, const int height) {
 	RGBImage::set(width, height);
-	int throwError = 0, e = 1 / throwError;
-	//TODO: resize or create a new pixel storage (Don't forget to delete the old storage)
+	if (image_shell != NULL) {
+		delete[] image_shell; //Delete previous image shell array if it exists
+	}
+	image_shell = new uint32_t[getWidth() * getHeight()];
 }
 
+//Resize or create a new pixel storage and copy the object, deleting the old storage in the process (if it exists)
 void RGBImageStudent::set(const RGBImageStudent &other) {
 	RGBImage::set(other.getWidth(), other.getHeight());
-	int throwError = 0, e = 1 / throwError;
-	//TODO: resize or create a new pixel storage and copy the object (Don't forget to delete the old storage)
+	if (image_shell != NULL) {
+		delete[] image_shell; //Delete previous image shell array if it exists
+	}
+	//TODO: Can we call the object copy constructor and set it to *this?
+	image_shell = new uint32_t[getWidth() * getHeight()]; //Create new image shell array with size of 'other'
+	for (int i = 0; i < getWidth() * getHeight(); i++) {
+		setPixel(i, other.getPixel(i)); //Get each pixel from other and set it into the new image shell
+	}
 }
 
-void RGBImageStudent::setPixel(int x, int y, RGB pixel) {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: no comment needed :)
+void RGBImageStudent::setPixel(int x, int y, RGB pixel) { //Function assumes correct x- and y-values, no out-of-bounds check 
+	image_shell[x * y] = pixel.r << 24 + pixel.g << 16 + pixel.b << 8; // (byte r)(byte g)(byte b)(empty)
 }
 
 void RGBImageStudent::setPixel(int i, RGB pixel) {
-	int throwError = 0, e = 1 / throwError;
-	/*
-	* TODO: set pixel i in "Row-Major Order"
-	*
-	*
-	* Original 2d image (values):
-	* 9 1 2
-	* 4 3 5
-	* 8 7 8
-	*
-	* 1d representation (i, value):
-	* i		value
-	* 0		9
-	* 1		1
-	* 2		2
-	* 3		4
-	* 4		3
-	* 5		5
-	* 6		8
-	* 7		7
-	* 8		8
-	*/
+	image_shell[i] = pixel.r << 24 + pixel.g << 16 + pixel.b << 8; // (byte r)(byte g)(byte b)(empty)
 }
 
 RGB RGBImageStudent::getPixel(int x, int y) const {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: no comment needed :)
-	return 0;
+	int location = x + y * getHeight(); //Convert to i
+	return getPixel(location); //Call getPixel(int i)
 }
 
 RGB RGBImageStudent::getPixel(int i) const {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: see setPixel(int i, RGB pixel)
-	return 0;
+	return RGB(image_shell[i] >> 24, image_shell[i] >> 16 && 0b11111111, image_shell[i] >> 8 && 0b11111111); //Bitshift to the right, then AND with last 8 bits to mask away the other values
 }
