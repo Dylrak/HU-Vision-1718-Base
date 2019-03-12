@@ -44,11 +44,11 @@ void RGBImageStudent::set(const RGBImageStudent &other) {
 }
 
 void RGBImageStudent::setPixel(int x, int y, RGB pixel) { //Function assumes correct x- and y-values, no out-of-bounds check 
-	image_shell[x * y] = pixel.r << 24 + pixel.g << 16 + pixel.b << 8; // (byte r)(byte g)(byte b)(empty)
+	image_shell[x * y] = pixel.r << 16 + pixel.g << 8 + pixel.b; // (empty)(byte r)(byte g)(byte b)
 }
 
 void RGBImageStudent::setPixel(int i, RGB pixel) {
-	image_shell[i] = pixel.r << 24 + pixel.g << 16 + pixel.b << 8; // (byte r)(byte g)(byte b)(empty)
+	image_shell[i] = pixel.r << 16 + pixel.g << 8 + pixel.b; // (empty)(byte r)(byte g)(byte b)
 }
 
 RGB RGBImageStudent::getPixel(int x, int y) const {
@@ -57,5 +57,5 @@ RGB RGBImageStudent::getPixel(int x, int y) const {
 }
 
 RGB RGBImageStudent::getPixel(int i) const {
-	return RGB(image_shell[i] >> 24, image_shell[i] >> 16 && 0b11111111, image_shell[i] >> 8 && 0b11111111); //Bitshift to the right, then AND with last 8 bits to mask away the other values
+	return RGB(image_shell[i] >> 16, image_shell[i] >> 8 && 0b11111111, image_shell[i] && 0b11111111); //Bitshift to the right, then AND with last 8 bits to mask away the other values
 }
