@@ -5,39 +5,29 @@ RGBImageStudent::RGBImageStudent() : RGBImage() {
 }
 
 RGBImageStudent::RGBImageStudent(const RGBImageStudent &other) : RGBImage(other.getWidth(), other.getHeight()) {
-	image_shell = new uint32_t[getWidth() * getHeight()]; //Create new image shell array with size of 'other'
+	image_shell = std::make_unique<uint32_t[]>(getWidth() * getHeight()); //Create new image shell array with size of 'other'
 	for (int i = 0; i < getWidth() * getHeight(); i++) {
 		setPixel(i, other.getPixel(i)); //Get each pixel from other and set it into the new image shell
 	}
 }
 
 RGBImageStudent::RGBImageStudent(const int width, const int height) : RGBImage(width, height) {
-	image_shell = new uint32_t[getWidth() * getHeight()];
+	image_shell = std::make_unique<uint32_t[]>(getWidth() * getHeight());
 }
 
 RGBImageStudent::~RGBImageStudent() {
-	if (image_shell != NULL) {
-		delete[] image_shell; //Delete image shell array if it exists
-	}
 }
 
 //Resize or create a new pixel storage, deleting the old storage in the process (if it exists)
 void RGBImageStudent::set(const int width, const int height) {
 	RGBImage::set(width, height);
-	if (image_shell != NULL) {
-		delete[] image_shell; //Delete previous image shell array if it exists
-	}
-	image_shell = new uint32_t[getWidth() * getHeight()];
+	image_shell = std::make_unique<uint32_t[]>(getWidth() * getHeight());
 }
 
 //Resize or create a new pixel storage and copy the object, deleting the old storage in the process (if it exists)
 void RGBImageStudent::set(const RGBImageStudent &other) {
 	RGBImage::set(other.getWidth(), other.getHeight());
-	if (image_shell != NULL) {
-		delete[] image_shell; //Delete previous image shell array if it exists
-	}
-	//TODO: Can we call the object copy constructor and set it to *this?
-	image_shell = new uint32_t[getWidth() * getHeight()]; //Create new image shell array with size of 'other'
+	image_shell = std::make_unique<uint32_t[]>(getWidth() * getHeight());
 	for (int i = 0; i < getWidth() * getHeight(); i++) {
 		setPixel(i, other.getPixel(i)); //Get each pixel from other and set it into the new image shell
 	}
