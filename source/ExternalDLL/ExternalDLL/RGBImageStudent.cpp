@@ -5,7 +5,7 @@ RGBImageStudent::RGBImageStudent() : RGBImage() {
 }
 
 RGBImageStudent::RGBImageStudent(const RGBImageStudent &other) : RGBImage(other.getWidth(), other.getHeight()) {
-	image_shell = new uint8_t[getWidth() * getHeight() * 3]; //Width * Height * 3 for r, g and b
+	image_shell = std::make_unique<uint8_t[]>(getWidth() * getHeight() * 3); //Width * Height * 3 for r, g and b
 	for (int i = 0; i < getWidth() * getHeight(); i++) {
 		setPixel(i, other.getPixel(i));
 	}
@@ -13,23 +13,20 @@ RGBImageStudent::RGBImageStudent(const RGBImageStudent &other) : RGBImage(other.
 
 
 RGBImageStudent::RGBImageStudent(const int width, const int height) : RGBImage(width, height) {
-	image_shell = new uint8_t[width * height * 3]; //Width * Height * 3 for r, g and b
+	image_shell = std::make_unique<uint8_t[]>(getWidth() * getHeight() * 3); //Width * Height * 3 for r, g and b
 }
 
 RGBImageStudent::~RGBImageStudent() {
-	delete[] image_shell;
 }
 
 void RGBImageStudent::set(const int width, const int height) {
 	RGBImage::set(width, height);
-	delete[] image_shell;
-	image_shell = new uint8_t[width * height * 3]; //Width * Height * 3 for r, g and b
+	image_shell = std::make_unique<uint8_t[]>(getWidth() * getHeight() * 3); //Width * Height * 3 for r, g and b
 }
 
 void RGBImageStudent::set(const RGBImageStudent &other) {
 	RGBImage::set(other.getWidth(), other.getHeight());
-	delete[] image_shell;
-	image_shell = new uint8_t[getWidth() * getHeight() * 3]; //Width * Height * 3 for r, g and b
+	image_shell = std::make_unique<uint8_t[]>(getWidth() * getHeight() * 3); //Width * Height * 3 for r, g and b
 }
 
 void RGBImageStudent::setPixel(int x, int y, RGB pixel) {

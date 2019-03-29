@@ -7,10 +7,11 @@
 #pragma once
 #include "RGBImage.h"
 #include <stdint.h>
+#include <memory>
 
 class RGBImageStudent : public RGBImage {
 private:
-	uint8_t *image_shell;
+	std::unique_ptr<uint8_t[]> image_shell;
 public:
 
 	RGBImageStudent();
