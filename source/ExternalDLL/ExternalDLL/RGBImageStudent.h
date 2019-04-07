@@ -7,11 +7,11 @@
 #pragma once
 #include "RGBImage.h"
 #include <stdint.h>
-#include <array>
+#include <memory>
 
 class RGBImageStudent : public RGBImage {
 private:
-	uint32_t* image_shell; // Pointer to the first element in the image shell.
+	std::unique_ptr<uint32_t[]> image_shell; // Pointer to the first element in the image shell.
 public:
 
 	RGBImageStudent();
