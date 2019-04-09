@@ -32,14 +32,16 @@ int main(int argc, char * argv[]) {
 		system("pause");
 		return 0;
 	}
+	RGBImage * input2 = ImageFactory::newRGBImage();
 	std::cout << "Loading second image:\n";
-	if (!ImageIO::loadImage(testset_path + "female-2.png", *input)) {
+	if (!ImageIO::loadImage(testset_path + "female-2.png", *input2)) {
 		std::cout << "Image could not be loaded!" << std::endl;
 		system("pause");
 		return 0;
 	}
+	RGBImage * input3 = ImageFactory::newRGBImage();
 	std::cout << "Loading third image:\n";
-	if (!ImageIO::loadImage(testset_path + "female-3.png", *input)) {
+	if (!ImageIO::loadImage(testset_path + "female-3.png", *input3)) {
 		std::cout << "Image could not be loaded!" << std::endl;
 		system("pause");
 		return 0;
