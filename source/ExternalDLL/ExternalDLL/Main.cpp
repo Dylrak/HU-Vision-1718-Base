@@ -23,15 +23,27 @@ int main(int argc, char * argv[]) {
 	ImageIO::isInDebugMode = true; //If set to false the ImageIO class will skip any image save function calls
 
 
-
+	std::string testset_path = "B:\\Documents\\Vision\\testsets\\Set A\\TestSet Images\\";
 
 	RGBImage * input = ImageFactory::newRGBImage();
-	if (!ImageIO::loadImage("B:\\Documents\\Vision\\testsets\\Set A\\TestSet Images\\female-1.png", *input)) {
+	std::cout << "Loading first image:\n";
+	if (!ImageIO::loadImage(testset_path + "female-1.png", *input)) {
 		std::cout << "Image could not be loaded!" << std::endl;
 		system("pause");
 		return 0;
 	}
-
+	std::cout << "Loading second image:\n";
+	if (!ImageIO::loadImage(testset_path + "female-2.png", *input)) {
+		std::cout << "Image could not be loaded!" << std::endl;
+		system("pause");
+		return 0;
+	}
+	std::cout << "Loading third image:\n";
+	if (!ImageIO::loadImage(testset_path + "female-3.png", *input)) {
+		std::cout << "Image could not be loaded!" << std::endl;
+		system("pause");
+		return 0;
+	}
 
 	ImageIO::saveRGBImage(*input, ImageIO::getDebugFileName("debug.png"));
 
