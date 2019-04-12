@@ -29,17 +29,17 @@ void IntensityImageStudent::set(const IntensityImageStudent &other) {
 }
 
 void IntensityImageStudent::setPixel(int x, int y, Intensity pixel) {
-	image_shell[x * y] = pixel;
+	image_shell[x * y] = (uint8_t) pixel;
 }
 
 void IntensityImageStudent::setPixel(int i, Intensity pixel) {
-	image_shell[i] = pixel;
+	image_shell[i] = (uint8_t) pixel;
 }
 
 Intensity IntensityImageStudent::getPixel(int x, int y) const {
-	return image_shell[x * y];
+	return getPixel(x * y);
 }
 
 Intensity IntensityImageStudent::getPixel(int i) const {
-	return image_shell[i];
+	return Intensity(image_shell[i]);
 }

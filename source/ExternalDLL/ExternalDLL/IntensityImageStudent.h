@@ -8,7 +8,12 @@
 
 #pragma once
 #include "IntensityImage.h"
+#include <stdint.h>
+#include <memory>
+
 class IntensityImageStudent : public IntensityImage {
+private:
+	std::unique_ptr<uint8_t[]> image_shell;
 public:
 	IntensityImageStudent();
 	IntensityImageStudent(const IntensityImageStudent &other);
@@ -22,6 +27,4 @@ public:
 
 	Intensity getPixel(int x, int y) const;
 	Intensity getPixel(int i) const;
-private:
-	std::unique_ptr<uint8_t[]> image_shell;
 };

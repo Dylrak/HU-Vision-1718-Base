@@ -2,11 +2,15 @@
 
 
 IntensityImage * StudentPreProcessing::stepToIntensityImage(const RGBImage &image) const {
-	IntensityImageStudent i_mage(image.getWidth(), image.getHeight);
+	IntensityImageStudent * intensity_image = new IntensityImageStudent(image.getWidth(), image.getHeight());
 	for (int i = 0; i < image.getWidth() * image.getHeight(); i++) {
-		i_mage.setPixel(i, image.getPixel(i).r * 0.3 + image.getPixel(i).g * 0.59 + image.getPixel(i).b * 0.11);
+		int r, g, b;
+		r = image.getPixel(i).r * 0.3;
+		g = image.getPixel(i).g * 0.59;
+		b = image.getPixel(i).b * 0.11;
+		intensity_image->setPixel(i, (r + g + b));
 	}
-	return &i_mage;
+	return intensity_image;
 }
 
 IntensityImage * StudentPreProcessing::stepScaleImage(const IntensityImage &image) const {
