@@ -4,6 +4,8 @@
 * Proprietary and confidential
 */
 
+#include <memory>
+
 #pragma once
 #include "IntensityImage.h"
 class IntensityImageStudent : public IntensityImage {
@@ -11,7 +13,6 @@ public:
 	IntensityImageStudent();
 	IntensityImageStudent(const IntensityImageStudent &other);
 	IntensityImageStudent(const int width, const int height);
-	~IntensityImageStudent();
 
 	void set(const int width, const int height);
 	void set(const IntensityImageStudent &other);
@@ -21,4 +22,6 @@ public:
 
 	Intensity getPixel(int x, int y) const;
 	Intensity getPixel(int i) const;
+private:
+	std::unique_ptr<uint8_t[]> image_shell;
 };

@@ -5,6 +5,7 @@
 */
 
 #pragma once
+#include "IntensityImageStudent.h"
 #include "PreProcessing.h"
 class StudentPreProcessing : public PreProcessing {
 public:
