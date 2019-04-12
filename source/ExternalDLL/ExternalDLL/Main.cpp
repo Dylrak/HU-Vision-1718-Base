@@ -24,7 +24,7 @@ int main(int argc, char * argv[]) {
 
 	//Folder containing 100
 	std::string testset_path = "C:\\Users\\dylra\\Documents\\Vision\\testsets\\Set A\\TestSet Images\\";
-	const static int testset_size = 10; //This is the hard-coded amount of images in the test set.
+	const static int testset_size = 14; //This is the hard-coded amount of images in the test set.
 	const static int step_amount = 20;
 	const std::string image_name = "test (";
 
