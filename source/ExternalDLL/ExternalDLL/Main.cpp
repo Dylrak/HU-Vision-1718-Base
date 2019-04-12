@@ -24,7 +24,7 @@ int main(int argc, char * argv[]) {
 
 	//Folder containing 100
 	std::string testset_path = "C:\\Users\\dylra\\Documents\\Vision\\testsets\\Set A\\TestSet Images\\";
-	const static int testset_size = 14; //This is the hard-coded amount of images in the test set.
+	const static int testset_size = 13; //This is the hard-coded amount of images in the test set.
 	const static int step_amount = 20;
 	const std::string image_name = "test (";
 
@@ -47,6 +47,7 @@ int main(int argc, char * argv[]) {
 	for (int i = 0; i < testset_size; i++)
 	{
 		try {
+			std::cout << "Current image suffix: " << std::to_string(i) << std::endl;
 			if (!ImageIO::loadImage(testset_path + image_name + std::to_string(i) + ").png", *input)) {
 				std::cout << "Image: " << testset_path << image_name << std::to_string(i) << ").png" << "could not be loaded!" << std::endl;
 				system("pause");
@@ -57,7 +58,8 @@ int main(int argc, char * argv[]) {
 			recognition_score += executeSteps(executor);
 
 			delete executor;
-		} catch (...)
+		}
+		catch (std::exception e)
 		{
 			//Do nothing; go to next image
 		}
