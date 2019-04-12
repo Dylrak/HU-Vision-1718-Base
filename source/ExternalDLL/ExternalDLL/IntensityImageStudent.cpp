@@ -5,39 +5,45 @@ IntensityImageStudent::IntensityImageStudent() : IntensityImage() {
 }
 
 IntensityImageStudent::IntensityImageStudent(const IntensityImageStudent &other) : IntensityImage(other.getWidth(), other.getHeight()) {
-	image_shell = std::make_unique<uint8_t[]>(getWidth() * getHeight()); //Create new image shell array with size of 'other'
-	for (int i = 0; i < getWidth() * getHeight(); i++) {
+	image_shell = new Intensity[getWidth() * getHeight()]; //Create new image shell array with size of 'other'
+	for (int i = 0; i < (getWidth() * getHeight()); i++) {
 		setPixel(i, other.getPixel(i)); //Get each pixel from other and set it into the new image shell
 	}
 }
 
 IntensityImageStudent::IntensityImageStudent(const int width, const int height) : IntensityImage(width, height) {
-	image_shell = std::make_unique<uint8_t[]>(getWidth() * getHeight());
+	image_shell = new Intensity[getWidth() * getHeight()];
+}
+
+IntensityImageStudent::~IntensityImageStudent() {
+	delete[] image_shell;
 }
 
 void IntensityImageStudent::set(const int width, const int height) {
 	IntensityImage::set(width, height);
-	image_shell = std::make_unique<uint8_t[]>(getWidth() * getHeight());
+	delete[] image_shell;
+	image_shell = new Intensity[getWidth() * getHeight()];
 }
 
 void IntensityImageStudent::set(const IntensityImageStudent &other) {
 	IntensityImage::set(other.getWidth(), other.getHeight());
-	image_shell = std::make_unique<uint8_t[]>(getWidth() * getHeight());
-	for (int i = 0; i < getWidth() * getHeight(); i++) {
+	delete[] image_shell;
+	image_shell = new Intensity[getWidth() * getHeight()];
+	for (int i = 0; i < (getWidth() * getHeight()); i++) {
 		setPixel(i, other.getPixel(i)); //Get each pixel from other and set it into the new image shell
 	}
 }
 
 void IntensityImageStudent::setPixel(int x, int y, Intensity pixel) {
-	image_shell[x * y] = (uint8_t) pixel;
+	setPixel(x * y, pixel);
 }
 
 void IntensityImageStudent::setPixel(int i, Intensity pixel) {
-	image_shell[i] = (uint8_t) pixel;
+	image_shell[i] = pixel;
 }
 
 Intensity IntensityImageStudent::getPixel(int x, int y) const {
-	return getPixel(x * y);
+	return getPixel(y * getWidth() + x);
 }
 
 Intensity IntensityImageStudent::getPixel(int i) const {

@@ -4,7 +4,7 @@
 IntensityImage * StudentPreProcessing::stepToIntensityImage(const RGBImage &image) const {
 	IntensityImageStudent * intensity_image = new IntensityImageStudent(image.getWidth(), image.getHeight());
 	for (int i = 0; i < image.getWidth() * image.getHeight(); i++) {
-		int r, g, b;
+		unsigned char r, g, b;
 		r = image.getPixel(i).r * 0.3;
 		g = image.getPixel(i).g * 0.59;
 		b = image.getPixel(i).b * 0.11;

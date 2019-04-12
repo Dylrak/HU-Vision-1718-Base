@@ -13,11 +13,12 @@
 
 class IntensityImageStudent : public IntensityImage {
 private:
-	std::unique_ptr<uint8_t[]> image_shell;
+	Intensity* image_shell;
 public:
 	IntensityImageStudent();
 	IntensityImageStudent(const IntensityImageStudent &other);
 	IntensityImageStudent(const int width, const int height);
+	~IntensityImageStudent();
 
 	void set(const int width, const int height);
 	void set(const IntensityImageStudent &other);
