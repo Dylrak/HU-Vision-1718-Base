@@ -42,8 +42,7 @@ void RGBImageStudent::setPixel(int i, RGB pixel) {
 }
 
 RGB RGBImageStudent::getPixel(int x, int y) const {
-	int location = x + y * getHeight(); //Convert to i
-	return getPixel(location); //Call getPixel(int i)
+	return getPixel(y * getWidth() + x); //Call getPixel(int i)
 }
 
 RGB RGBImageStudent::getPixel(int i) const {
