@@ -11,7 +11,10 @@
 
 class RGBImageStudent : public RGBImage {
 private:
-	std::unique_ptr<uint32_t[]> image_shell; // Pointer to the first element in the image shell.
+	// Pointer to the first element in the image shell.
+	// Keep one of these members commented to enable one image_shell size.
+	std::unique_ptr<uint32_t[]> image_shell;
+	//std::unique_ptr<uint8_t[]> image_shell;
 public:
 
 	RGBImageStudent();
