@@ -1,75 +1,51 @@
 #include "IntensityImageStudent.h"
 
 IntensityImageStudent::IntensityImageStudent() : IntensityImage() {
-	int throwError = 0, e = 1 / throwError; //Throws error without the need to include a header
-	//TODO: Nothing
+	image_shell = NULL;
 }
 
 IntensityImageStudent::IntensityImageStudent(const IntensityImageStudent &other) : IntensityImage(other.getWidth(), other.getHeight()) {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: Create a copy from the other object
+	image_shell = new Intensity[getWidth() * getHeight()]; //Create new image shell array with size of 'other'
+	for (int i = 0; i < (getWidth() * getHeight()); i++) {
+		setPixel(i, other.getPixel(i)); //Get each pixel from other and set it into the new image shell
+	}
 }
 
 IntensityImageStudent::IntensityImageStudent(const int width, const int height) : IntensityImage(width, height) {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: Initialize pixel storage
+	image_shell = new Intensity[getWidth() * getHeight()];
 }
 
 IntensityImageStudent::~IntensityImageStudent() {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: delete allocated objects
+	delete[] image_shell;
 }
 
 void IntensityImageStudent::set(const int width, const int height) {
 	IntensityImage::set(width, height);
-	int throwError = 0, e = 1 / throwError;
-	//TODO: resize or create a new pixel storage (Don't forget to delete the old storage)
+	delete[] image_shell;
+	image_shell = new Intensity[getWidth() * getHeight()];
 }
 
 void IntensityImageStudent::set(const IntensityImageStudent &other) {
 	IntensityImage::set(other.getWidth(), other.getHeight());
-	int throwError = 0, e = 1 / throwError;
-	//TODO: resize or create a new pixel storage and copy the object (Don't forget to delete the old storage)
+	delete[] image_shell;
+	image_shell = new Intensity[getWidth() * getHeight()];
+	for (int i = 0; i < (getWidth() * getHeight()); i++) {
+		setPixel(i, other.getPixel(i)); //Get each pixel from other and set it into the new image shell
+	}
 }
 
 void IntensityImageStudent::setPixel(int x, int y, Intensity pixel) {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: no comment needed :)
+	setPixel(x * y, pixel);
 }
 
 void IntensityImageStudent::setPixel(int i, Intensity pixel) {
-	int throwError = 0, e = 1 / throwError;
-	/*
-	* TODO: set pixel i in "Row-Major Order"
-	*
-	*
-	* Original 2d image (values):
-	* 9 1 2
-	* 4 3 5
-	* 8 7 8
-	*
-	* 1d representation (i, value):
-	* i		value
-	* 0		9
-	* 1		1
-	* 2		2
-	* 3		4
-	* 4		3
-	* 5		5
-	* 6		8
-	* 7		7
-	* 8		8
-	*/
+	image_shell[i] = pixel;
 }
 
 Intensity IntensityImageStudent::getPixel(int x, int y) const {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: no comment needed :)
-	return 0;
+	return getPixel(y * getWidth() + x);
 }
 
 Intensity IntensityImageStudent::getPixel(int i) const {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: see setPixel(int i, RGB pixel)
-	return 0;
+	return Intensity(image_shell[i]);
 }

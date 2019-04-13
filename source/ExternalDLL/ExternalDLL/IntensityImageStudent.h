@@ -4,9 +4,16 @@
 * Proprietary and confidential
 */
 
+#include <memory>
+
 #pragma once
 #include "IntensityImage.h"
+#include <stdint.h>
+#include <memory>
+
 class IntensityImageStudent : public IntensityImage {
+private:
+	Intensity* image_shell;
 public:
 	IntensityImageStudent();
 	IntensityImageStudent(const IntensityImageStudent &other);
