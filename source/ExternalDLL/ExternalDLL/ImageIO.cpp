@@ -62,8 +62,14 @@ bool ImageIO::loadImage(const std::string file, RGBImage &dst) {
 
 	Mat normal;
 	raw.convertTo(normal, CV_8UC3);
+
+	// Below is a timer for loading in images. To disable this timer, simply comment out the start line and cout line. Don't comment out the HereBeDragons line.
+	//Start timer:
+	auto start = std::chrono::steady_clock::now();
 	//Load image into image shell:
 	HereBeDragons::HeIsContentedThyPoorDrudgeToBe(normal, dst);
+	//End timer and print to console in microseconds:
+	std::cout << std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - start).count() << " microseconds" << std::endl;
 	return true;
 }
 
