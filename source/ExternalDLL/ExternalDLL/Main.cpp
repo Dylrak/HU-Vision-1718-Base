@@ -31,18 +31,6 @@ int main(int argc, char * argv[]) {
 	int recognition_score = 0;
 
 	RGBImage * input = ImageFactory::newRGBImage();
-	
-	/*if (!ImageIO::loadImage("C:\\Users\\dylra\\Documents\\Vision\\testsets\\Set A\\TestSet Images\\female-1.png", *input)) {
-		std::cout << "Image: female-1.png could not be loaded!" << std::endl;
-		system("pause");
-		return 0;
-	}
-	DLLExecution * executor = new DLLExecution(input);
-
-	if (executeSteps(executor)) {
-		successful_recognitions++;
-		std::cout << "Recognition successful!" << std::endl;
-	}*/
 
 	for (int i = 0; i < testset_size; i++)
 	{
@@ -61,12 +49,12 @@ int main(int argc, char * argv[]) {
 		}
 		catch (std::exception e)
 		{
-			//Do nothing; go to next image
+			//Do nothing; go to next image. Crashing gives a recognition score of zero.
 		}
 	}
+	//Calculate average percentage of how far the entire test set managed to complete the recognition steps.
 	std::cout << "Average completion percentage: " << recognition_score / (float)(step_amount * testset_size) * 100 << '%' << std::endl;
 
-	//ImageIO::saveRGBImage(*input, ImageIO::getDebugFileName("debug.png"));
 	system("pause");
 	return 1;
 }
