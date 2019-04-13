@@ -19,11 +19,55 @@ int main(int argc, char * argv[]) {
 	ImageFactory::setImplementation(ImageFactory::DEFAULT);
 	//ImageFactory::setImplementation(ImageFactory::STUDENT);
 
-	ImageIO::debugFolder = "C:\\Users\\dylra\\Documents\\Vision\\FaceMinMin";
+	ImageIO::debugFolder = "C:\\Users\\<USERNAME>\\Documents\\Vision\\FaceMinMin";
 	ImageIO::isInDebugMode = true; //If set to false the ImageIO class will skip any image save function calls
 
-	//Folder containing 100
-	std::string testset_path = "C:\\Users\\dylra\\Documents\\Vision\\testsets\\Set A\\TestSet Images\\";
+	std::string testset_path = "C:\\Users\\<USERNAME>\\Documents\\Vision\\testsets\\Set A\\TestSet Images\\";
+
+	// Uncomment the code below for testing the time for RGBImage shell:
+
+	/*
+	RGBImage * input = ImageFactory::newRGBImage();
+	std::cout << "Loading first image:\n";
+	if (!ImageIO::loadImage(testset_path + "test (1).png", *input)) {
+		std::cout << "Image could not be loaded!" << std::endl;
+		system("pause");
+		return 0;
+	}
+	RGBImage * input2 = ImageFactory::newRGBImage();
+	std::cout << "Loading second image:\n";
+	if (!ImageIO::loadImage(testset_path + "test (2).png", *input2)) {
+		std::cout << "Image could not be loaded!" << std::endl;
+		system("pause");
+		return 0;
+	}
+	RGBImage * input3 = ImageFactory::newRGBImage();
+	std::cout << "Loading third image:\n";
+	if (!ImageIO::loadImage(testset_path + "test (3).png", *input3)) {
+		std::cout << "Image could not be loaded!" << std::endl;
+		system("pause");
+		return 0;
+	}
+
+	ImageIO::saveRGBImage(*input, ImageIO::getDebugFileName("debug.png"));
+
+	DLLExecution * executor = new DLLExecution(input);
+
+
+	if (executeSteps(executor)) {
+		std::cout << "Face recognition successful!" << std::endl;
+		std::cout << "Facial parameters: " << std::endl;
+		for (int i = 0; i < 16; i++) {
+			std::cout << (i+1) << ": " << executor->facialParameters[i] << std::endl;
+		}
+	}
+
+	delete executor;
+	*/
+
+	// Uncomment the code below for testing the performance of preprocessing techniques:
+
+	/*
 	const static int testset_size = 13; //This is the hard-coded amount of images in the test set.
 	const static int step_amount = 20;
 	const std::string image_name = "test (";
@@ -54,19 +98,13 @@ int main(int argc, char * argv[]) {
 	}
 	//Calculate average percentage of how far the entire test set managed to complete the recognition steps.
 	std::cout << "Average completion percentage: " << recognition_score / (float)(step_amount * testset_size) * 100 << '%' << std::endl;
+	*/
 
+
+	// Don't comment out code from here
 	system("pause");
 	return 1;
 }
-
-
-
-
-
-
-
-
-
 
 int executeSteps(DLLExecution * executor) {
 
