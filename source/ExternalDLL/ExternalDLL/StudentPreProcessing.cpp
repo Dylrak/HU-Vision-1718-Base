@@ -2,7 +2,7 @@
 #include <algorithm>
 
 //Intensity:
-/*
+
 IntensityImage * StudentPreProcessing::stepToIntensityImage(const RGBImage &image) const {
 	IntensityImageStudent * intensity_image = new IntensityImageStudent(image.getWidth(), image.getHeight());
 	for (int i = 0; i < image.getWidth() * image.getHeight(); i++) {
@@ -14,9 +14,9 @@ IntensityImage * StudentPreProcessing::stepToIntensityImage(const RGBImage &imag
 	}
 	return intensity_image;
 }
-*/
-//Luminance (OpenCV standard):
 
+//Luminance (OpenCV standard):
+/*
 IntensityImage * StudentPreProcessing::stepToIntensityImage(const RGBImage &image) const {
 	IntensityImageStudent * intensity_image = new IntensityImageStudent(image.getWidth(), image.getHeight());
 	for (int i = 0; i < image.getWidth() * image.getHeight(); i++) {
@@ -28,7 +28,7 @@ IntensityImage * StudentPreProcessing::stepToIntensityImage(const RGBImage &imag
 	}
 	return intensity_image;
 }
-
+*/
 //Luma:
 /*
 IntensityImage * StudentPreProcessing::stepToIntensityImage(const RGBImage &image) const {
@@ -39,6 +39,27 @@ IntensityImage * StudentPreProcessing::stepToIntensityImage(const RGBImage &imag
 		g = image.getPixel(i).g;
 		b = image.getPixel(i).b;
 		intensity_image->setPixel(i, r * 0.2126 + g * 0.7152 + b * 0.0722);
+	}
+	return intensity_image;
+}
+*/
+//Lightness:
+/*
+IntensityImage * StudentPreProcessing::stepToIntensityImage(const RGBImage &image) const {
+	IntensityImageStudent * intensity_image = new IntensityImageStudent(image.getWidth(), image.getHeight());
+	for (int i = 0; i < image.getWidth() * image.getHeight(); i++) {
+		uint8_t r, g, b, y;
+		r = image.getPixel(i).r;
+		g = image.getPixel(i).g;
+		b = image.getPixel(i).b;
+		y = r * 0.2126 + g * 0.7152 + b * 0.0722;
+		if (y > (6 / 29) * (6 / 29) * (6 / 29)) {
+			intensity_image->setPixel(i, cbrt(y));
+		}
+		else {
+			intensity_image->setPixel(i, ((29 / 6) * (29 / 6)) / 3 * y + 4 / 29);
+		}
+		
 	}
 	return intensity_image;
 }
